@@ -1,7 +1,29 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 export default function Daftar() {
+  const [nik, setNik] = useState("");
+  const [pin, setPin] = useState("");
+  const router = useRouter();
+
+  const handleDaftar = async () => {
+    const res = await fetch("/api/daftar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nik, pin }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("Pendaftaran berhasil, silahkan login");
+      router.push("/login");
+    } else {
+      alert(data.message || "Pendaftaran gagal");
+    }
+  };
+
   return (
     <div className="flex h-screen">
-      
       {/* Kiri: Form Daftar */}
       <div className="w-1/2 flex justify-center items-center">
         <div className="w-80">
@@ -12,14 +34,18 @@ export default function Daftar() {
             type="text"
             placeholder="Masukkan NIK"
             className="w-full mb-4 px-3 py-2 border rounded"
+            value={nik}
+            onChange={(e) => setNik(e.target.value)}
           />
           <input
             type="password"
             placeholder="Buat PIN"
             className="w-full mb-4 px-3 py-2 border rounded"
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
           />
           
-          <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded mb-4">
+          <button onClick={handleDaftar} className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded mb-4">
             Daftar
           </button>
 
@@ -36,8 +62,6 @@ export default function Daftar() {
           <p className="mt-2">Pelayanan Desa Karyalaksana</p>
         </div>
       </div>
-      
     </div>
   );
 }
-
