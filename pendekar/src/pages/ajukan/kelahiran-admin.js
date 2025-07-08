@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function KelahiranForm() {
+export default function KelahiranAdminForm() {
 const router = useRouter();
-const { id, admin } = router.query;
-const isAdmin = admin === "true";
+const { id } = router.query;
 
 const [form, setForm] = useState({
 nik_anak: "",
@@ -29,6 +28,8 @@ keperluan: "",
 keterangan: "",
 });
 
+const [loading, setLoading] = useState(false);
+
 useEffect(() => {
 if (!id) return;
 fetch(`/api/admin/permohonan/${id}`)
@@ -42,64 +43,66 @@ setForm((prev) => ({ ...prev, ...isi }));
 .catch((err) => console.error("Gagal ambil detail:", err));
 }, [id]);
 
-const handleChange = (e) => {
-if (isAdmin) return; // Admin tidak boleh ubah input
-setForm({ ...form, [e.target.name]: e.target.value });
-};
-
-const handleKirim = async () => {
+const updateStatus = async (statusBaru, keteranganBaru = "") => {
+if (loading) return;
+setLoading(true);
 try {
-const res = await fetch("/api/kelahiran", {
-method: "POST",
+const res = await fetch(`/api/admin/permohonan/${id}`, {
+method: "PUT",
 headers: { "Content-Type": "application/json" },
-body: JSON.stringify(form),
+body: JSON.stringify({
+status: statusBaru,
+keterangan: keteranganBaru,
+}),
 });
-const data = await res.json();
 if (res.ok) {
-alert(data.message);
-router.push("/ajukan");
+alert(`Status berhasil diubah menjadi ${statusBaru}`);
+router.push("/admin/permohonan");
 } else {
-alert(data.message || "Gagal menyimpan");
+alert("Gagal mengubah status");
 }
 } catch (err) {
 console.error(err);
 alert("Terjadi kesalahan");
+} finally {
+setLoading(false);
+}
+};
+
+const handleCetak = () => {
+if (confirm("Yakin permohonan selesai dan siap cetak?")) {
+updateStatus("selesai", "sudah dicetak");
 }
 };
 
 const handleTolak = () => {
-alert("Permohonan ditolak!");
-router.push("/admin/permohonan");
-};
-
-const handleCetak = () => {
-alert("Cetak surat...");
+const alasan = prompt("Masukkan alasan penolakan:");
+if (alasan) {
+updateStatus("ditolak", alasan);
+}
 };
 
 const renderInput = (props) => (
-<input {...props} disabled={isAdmin} onChange={handleChange} className="border px-3 py-2 rounded" />
+<input {...props} disabled className="border px-3 py-2 rounded bg-gray-100" />
 );
 
 return (
 <div className="flex min-h-screen bg-gray-50">
 <aside className="w-64 bg-white border-r p-6">
-<div className="text-green-600 font-bold text-lg mb-8 flex items-center gap-2">🛡️ Pendekar</div>
+<div className="text-green-600 font-bold text-lg mb-8 flex items-center gap-2">🛡️ Admin</div>
 <nav className="space-y-2">
 <button onClick={() => router.back()} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">← Kembali</button>
 </nav>
 </aside>
 
+
   <main className="flex-1 p-6 overflow-auto">
     <div className="flex justify-between items-center mb-6">
-      <h1 className="text-xl font-bold">📝 Surat Keterangan Kelahiran</h1>
-      {isAdmin ? (
-        <div className="space-x-2">
-          <button onClick={handleTolak} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Tolak</button>
-          <button onClick={handleCetak} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cetak</button>
-        </div>
-      ) : (
-        <button onClick={handleKirim} className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Kirim</button>
-      )}
+      <h1 className="text-xl font-bold">📝 Surat Keterangan Kelahiran (Admin)</h1>
+      <div className="space-x-2">
+        <button onClick={handleTolak} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Tolak</button>
+        <button onClick={handleCetak} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cetak</button>
+      </div>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,7 +111,7 @@ return (
         <div className="grid grid-cols-2 gap-4 mb-2">
           {renderInput({ name: "nik_anak", value: form.nik_anak, placeholder: "NIK Anak" })}
           {renderInput({ name: "no_kk", value: form.no_kk, placeholder: "No. KK" })}
-          {renderInput({ name: "nama_anak", value: form.nama_anak, placeholder: "Nama Anak", className: "col-span-2 border px-3 py-2 rounded" })}
+          {renderInput({ name: "nama_anak", value: form.nama_anak, placeholder: "Nama Anak", className: "col-span-2 border px-3 py-2 rounded bg-gray-100" })}
           {renderInput({ name: "jenis_kelamin", value: form.jenis_kelamin, placeholder: "Jenis Kelamin" })}
           {renderInput({ name: "tempat_lahir", value: form.tempat_lahir, placeholder: "Tempat Lahir" })}
           {renderInput({ name: "tanggal_lahir", value: form.tanggal_lahir, placeholder: "Tanggal Lahir" })}
@@ -120,7 +123,7 @@ return (
       <div className="bg-white p-4 rounded shadow">
         <h2 className="font-semibold text-sm mb-2">Alamat</h2>
         <div className="grid grid-cols-2 gap-4 mb-2">
-          {renderInput({ name: "alamat", value: form.alamat, placeholder: "Alamat", className: "col-span-2 border px-3 py-2 rounded" })}
+          {renderInput({ name: "alamat", value: form.alamat, placeholder: "Alamat", className: "col-span-2 border px-3 py-2 rounded bg-gray-100" })}
           {renderInput({ name: "rt", value: form.rt, placeholder: "RT" })}
           {renderInput({ name: "rw", value: form.rw, placeholder: "RW" })}
           {renderInput({ name: "desa", value: form.desa, placeholder: "Desa" })}
@@ -134,15 +137,15 @@ return (
       <div className="bg-white p-4 rounded shadow">
         <h2 className="font-semibold text-sm mb-2">Data Orang Tua</h2>
         <div className="grid grid-cols-2 gap-4 mb-2">
-          {renderInput({ name: "nama_ayah", value: form.nama_ayah, placeholder: "Nama Ayah", className: "col-span-2 border px-3 py-2 rounded" })}
-          {renderInput({ name: "nama_ibu", value: form.nama_ibu, placeholder: "Nama Ibu", className: "col-span-2 border px-3 py-2 rounded" })}
+          {renderInput({ name: "nama_ayah", value: form.nama_ayah, placeholder: "Nama Ayah", className: "col-span-2 border px-3 py-2 rounded bg-gray-100" })}
+          {renderInput({ name: "nama_ibu", value: form.nama_ibu, placeholder: "Nama Ibu", className: "col-span-2 border px-3 py-2 rounded bg-gray-100" })}
         </div>
       </div>
 
       <div className="bg-white p-4 rounded shadow">
         <h2 className="font-semibold text-sm mb-2">Keperluan</h2>
-        <textarea name="keperluan" value={form.keperluan} onChange={handleChange} disabled={isAdmin} className="w-full border px-3 py-2 rounded mb-2" rows={3} placeholder="Contoh: Pengajuan akta kelahiran" />
-        <textarea name="keterangan" value={form.keterangan} onChange={handleChange} disabled={isAdmin} className="w-full border px-3 py-2 rounded" rows={3} placeholder="Tulis tambahan keterangan jika ada" />
+        <textarea name="keperluan" value={form.keperluan} disabled className="w-full border px-3 py-2 rounded mb-2 bg-gray-100" rows={3} placeholder="Contoh: Pengajuan akta kelahiran" />
+        <textarea name="keterangan" value={form.keterangan} disabled className="w-full border px-3 py-2 rounded bg-gray-100" rows={3} placeholder="Tulis tambahan keterangan jika ada" />
       </div>
     </div>
   </main>
