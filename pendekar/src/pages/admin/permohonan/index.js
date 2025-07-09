@@ -73,7 +73,7 @@ export default function PermohonanAdmin() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 overflow-auto">
+      <main className="flex-1 p-6 overflow-auto text-black">
         <h1 className="text-2xl font-bold mb-6">Daftar Permohonan Surat</h1>
 
         <div className="mb-4">

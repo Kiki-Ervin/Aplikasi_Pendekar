@@ -29,7 +29,7 @@ try {
 };
 
 return (
-<div className="flex items-center justify-center min-h-screen bg-white">
+<div className="flex items-center justify-center min-h-screen bg-white text-black">
 <div className="w-full max-w-sm p-6 border rounded shadow">
 <h2 className="text-xl font-semibold mb-2">Admin Login</h2>
 <p className="text-gray-500 mb-4 text-sm">

@@ -76,7 +76,7 @@ fetch("/api/admin/surat")
         </nav>
       </aside>
 
-      <main className="flex-1 p-6 overflow-auto">
+      <main className="flex-1 p-6 overflow-auto text-black">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Daftar Surat Selesai</h1>
         </div>

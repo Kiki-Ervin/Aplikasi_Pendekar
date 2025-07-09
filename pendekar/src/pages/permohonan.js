@@ -55,7 +55,7 @@ return (
   {/* Main Content */}
   <main className="flex-1 p-6 overflow-auto">
     <div className="flex justify-between items-center mb-4">
-      <h1 className="text-xl font-semibold">Permohonan Saya</h1>
+      <h1 className="text-xl font-semibold text-black">Permohonan Saya</h1>
       <Link href="/ajukan">
         <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
           Ajukan Permohonan
@@ -68,7 +68,7 @@ return (
       <input
         type="text"
         placeholder="Cari Jenis Surat ..."
-        className="w-full max-w-sm px-3 py-2 border border-gray-300 rounded"
+        className="w-full max-w-sm px-3 py-2 border border-gray-300 rounded text-black"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -76,7 +76,7 @@ return (
 
     {/* Table */}
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200 text-sm">
+      <table className="min-w-full bg-white border border-gray-700 text-sm text-black">
         <thead className="bg-gray-100 text-left">
           <tr>
             <th className="px-4 py-2 border-b">Jenis Surat</th>

@@ -89,7 +89,7 @@ export default function RiwayatSurat() {
         </nav>
       </aside>
 
-      <main className="flex-1 p-6 overflow-auto">
+      <main className="flex-1 p-6 overflow-auto text-black">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Riwayat Permohonan Surat</h1>
         </div>
