@@ -48,17 +48,22 @@ return (
 <aside className="w-64 bg-white border-r p-6">
 <div className="text-green-600 font-bold text-lg mb-8 flex items-center gap-2">🛡️ Pendekar</div>
 <nav className="space-y-2">
-<button onClick={() => router.back()} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">← Kembali</button>
+<button
+  onClick={() => router.back()}
+  className="block px-4 py-2 rounded bg-green-600 text-white text-sm cursor-pointer hover:bg-green-700 transition-colors duration-200"
+>
+  ← Kembali
+</button>
 </nav>
 </aside>
 
   <main className="flex-1 p-6 overflow-auto">
     <div className="flex justify-between items-center mb-6">
-      <h1 className="text-xl font-bold">📝 Surat Izin Keramaian</h1>
+      <h1 className="text-xl font-bold text-black">📝 Surat Izin Keramaian</h1>
       <button onClick={handleSubmit} className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Kirim</button>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-black">
       
       {/* Data Penyelenggara */}
       <div className="bg-white p-4 rounded shadow">

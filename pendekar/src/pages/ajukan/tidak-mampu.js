@@ -58,9 +58,13 @@ return (
 🛡️ Pendekar
 </div>
 <nav className="space-y-2">
-<button onClick={() => router.back()} className="bg-green-600 block px-4 py-2 text-white hover:bg-green-100 rounded">
-← Kembali
+<button
+  onClick={() => router.back()}
+  className="block px-4 py-2 rounded bg-green-600 text-white text-sm cursor-pointer hover:bg-green-700 transition-colors duration-200"
+>
+  ← Kembali
 </button>
+
 </nav>
 </aside>
 
@@ -79,7 +83,7 @@ return (
       <div className="bg-white p-4 rounded shadow">
         <h2 className="font-semibold text-sm text-black mb-2">Data Diri</h2>
         <p className="text-xs text-gray-500 mb-4">Informasi data diri penduduk yang bersangkutan</p>
-        <div className="grid grid-cols-2 gap-4 mb-2">
+        <div className="grid grid-cols-2 gap-4 mb-2 text-black">
           <input name="nik" type="text" placeholder="NIK" className="border px-3 py-2 rounded" value={form.nik} onChange={handleChange} />
           <input name="no_kk" type="text" placeholder="No. KK" className="border px-3 py-2 rounded" value={form.no_kk} onChange={handleChange} />
           <input name="nama" type="text" placeholder="Nama" className="col-span-2 border px-3 py-2 rounded" value={form.nama} onChange={handleChange} />
@@ -91,7 +95,7 @@ return (
       </div>
 
       {/* Alamat */}
-      <div className="bg-white p-4 rounded shadow">
+      <div className="bg-white p-4 rounded shadow text-black">
         <h2 className="font-semibold text-sm text-black mb-2">Alamat</h2>
         <p className="text-xs text-gray-500 mb-4">Informasi alamat penduduk yang bersangkutan</p>
         <div className="grid grid-cols-2 gap-4 mb-2">
@@ -107,7 +111,7 @@ return (
       </div>
 
       {/* Pendidikan dan Pekerjaan */}
-      <div className="bg-white p-4 rounded shadow">
+      <div className="bg-white p-4 rounded shadow text-black">
         <h2 className="font-semibold text-black text-sm mb-2">Pendidikan dan Pekerjaan</h2>
         <p className="text-xs text-gray-500 mb-4">Informasi pendidikan dan pekerjaan</p>
         <div className="grid grid-cols-2 gap-4 mb-2">
@@ -118,7 +122,7 @@ return (
       </div>
 
       {/* Keperluan */}
-      <div className="bg-white p-4 rounded shadow">
+      <div className="bg-white p-4 rounded shadow text-black">
         <h2 className="font-semibold text-black text-sm mb-2">Keperluan</h2>
         <p className="text-xs text-gray-500 mb-4">Untuk keperluan apa?</p>
         <textarea name="keperluan" className="w-full border px-3 py-2 rounded mb-2" rows={3} placeholder="Silahkan tulis keperluan" value={form.keperluan} onChange={handleChange} />

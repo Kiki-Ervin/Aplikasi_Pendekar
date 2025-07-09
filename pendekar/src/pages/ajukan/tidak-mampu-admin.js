@@ -93,12 +93,17 @@ return (
 <aside className="w-64 bg-white border-r p-6">
 <div className="text-green-600 font-bold text-lg mb-8 flex items-center gap-2">🛡️ Admin</div>
 <nav className="space-y-2">
-<button onClick={() => router.back()} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">← Kembali</button>
+<button
+  onClick={() => router.back()}
+  className="block px-4 py-2 rounded bg-green-600 text-white text-sm cursor-pointer hover:bg-green-700 transition-colors duration-200"
+>
+  ← Kembali
+</button>
 </nav>
 </aside>
 
 
-  <main className="flex-1 p-6 overflow-auto">
+  <main className="flex-1 p-6 overflow-auto text-black">
     <div className="flex justify-between items-center mb-6">
       <h1 className="text-xl font-bold">📝 Surat Keterangan Tidak Mampu (Admin)</h1>
       <div className="space-x-2">
