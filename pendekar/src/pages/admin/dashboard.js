@@ -29,7 +29,7 @@ export default function DashboardAdmin() {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 text-black">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r p-6">
         <div className="text-green-600 font-bold text-lg mb-8 flex items-center gap-2">
@@ -107,7 +107,6 @@ export default function DashboardAdmin() {
       <main className="flex-1 p-6 overflow-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Dashboard Admin</h1>
-          <button className="text-gray-500 hover:text-black">⚙️</button>
         </div>
 
         {/* Stats */}
@@ -138,7 +137,7 @@ export default function DashboardAdmin() {
               <p className="text-sm text-gray-500">Beberapa permohonan surat terbaru</p>
             </div>
             <Link href="/admin/permohonan" legacyBehavior>
-              <a className="text-green-600 text-sm hover:underline cursor-pointer">
+              <a className="block px-4 py-2 rounded bg-green-600 text-white text-sm cursor-pointer hover:bg-green-700">
                 Lihat Semua
               </a>
             </Link>

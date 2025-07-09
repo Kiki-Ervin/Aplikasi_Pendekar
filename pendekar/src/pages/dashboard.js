@@ -70,26 +70,25 @@ export default function Dashboard() {
       <main className="flex-1 p-6 overflow-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <button className="text-gray-500 hover:text-black">⚙️</button>
+          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-black">
           <div className="bg-white p-4 rounded shadow">
             <p className="text-black">Total Permohonan</p>
             <h2 className="text-3xl font-bold text-black">{total}</h2>
           </div>
           <div className="bg-white p-4 rounded shadow">
-            <p className="text-gray-500">Permohonan Diproses</p>
+            <p className="text-black">Permohonan Diproses</p>
             <h2 className="text-3xl font-bold">{diproses}</h2>
           </div>
           <div className="bg-white p-4 rounded shadow">
-            <p className="text-gray-500">Permohonan Disetujui</p>
+            <p className="text-black">Permohonan Disetujui</p>
             <h2 className="text-3xl font-bold">{disetujui}</h2>
           </div>
           <div className="bg-white p-4 rounded shadow">
-            <p className="text-gray-500">Permohonan Ditolak</p>
+            <p className="text-black">Permohonan Ditolak</p>
             <h2 className="text-3xl font-bold">{ditolak}</h2>
           </div>
         </div>
@@ -98,28 +97,29 @@ export default function Dashboard() {
         <div className="bg-white p-4 rounded shadow">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h2 className="font-bold">Permohonan Surat Terbaru</h2>
+              <h2 className="font-bold text-black">Permohonan Surat Terbaru</h2>
               <p className="text-sm text-gray-500">Beberapa permohonan surat terbaru</p>
             </div>
             <Link href="/permohonan">
-              <span className="text-green-600 text-sm hover:underline cursor-pointer">
+              <span className="block px-4 py-2 rounded bg-green-600 text-white text-sm cursor-pointer hover:bg-green-700">
                 Lihat Semua
               </span>
+
+
             </Link>
           </div>
 
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b">
-                <th className="py-2">Jenis Surat</th>
-                <th className="py-2">Keterangan</th>
-                <th className="py-2">Status</th>
-                <th className="py-2">Tanggal Pengajuan</th>
+                <th className="py-2 text-black">Jenis Surat</th>
+                <th className="py-2 text-black">Keterangan</th>
+                <th className="py-2 text-black">Status</th>
               </tr>
             </thead>
             <tbody>
               {terbaru.map((row) => (
-                <tr key={row.id} className="border-b">
+                <tr key={row.id} className="border-b text-black">
                   <td className="py-2">{row.jenis_surat}</td>
                   <td className="py-2">{row.keterangan || "-"}</td>
                   <td className="py-2">
